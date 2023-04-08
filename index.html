@@ -6,26 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo list</title>
     <link rel="stylesheet" href="main.css" />
+    <script src="toDoList.js" defer></script>
   </head>
   <body>
     <header>
       <h1>✨MY TODO LIST✨</h1>
     </header>
     <main class="container">
-      <div class="yourList">
-        <input type="text" />
-        <button>+</button>
-      </div>
-      <div class="examples">
-        <p>MAKE DINNER</p>
-        <p>DO THE DISCHES</p>
-        <p>CLEAN THE APARTMENT</p>
-        <p>IRON CLOTHES</p>
-        <p>DO THE LAUNDRY</p>
-        <p>STUDY</p>
-        <p>READ YOUR BOOK</p>
-        <p>TALK TO FAMILY</p>
-      </div>
+      <article class="list" id="list">
+        <input id="input" type="text" placeholder="Your task here!" />
+        <button id="add">+</button>
+      </article>
+      <article class="chores" id="chores"></article>
     </main>
     <footer><p>Created by Emilia Fredriksson🦄</p></footer>
   </body>
