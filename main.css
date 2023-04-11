@@ -19,7 +19,15 @@ header {
 
 .chores {
   text-align: center;
-  font-size: 0.9rem;
+}
+
+.completed {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.text {
+  font-size: 1.2rem;
 }
 
 footer {
