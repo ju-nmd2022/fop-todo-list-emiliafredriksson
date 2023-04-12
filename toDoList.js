@@ -30,7 +30,7 @@ function addChores() {
     comepleted: false,
   };
 
-  // doesn't get pushed to the array if the input is emty
+  // Doesn't get pushed to the array if the input is emty
   if (inputElement.value.length > 0) {
     choresArray.push(chore);
 
@@ -44,7 +44,7 @@ function addChores() {
 }
 
 function displayChores(chore) {
-  //   prevents tasks from multiplying
+  //Prevents tasks from multiplying
   choresElement.innerHTML = "";
 
   for (let chore of choresArray) {
@@ -75,6 +75,7 @@ function displayChores(chore) {
       displayChores();
     });
 
+    // The following 3 lines of code I got some help from Arash
     if (chore.comepleted === true) {
       inputChore.style.textDecoration = "line-through";
     }
