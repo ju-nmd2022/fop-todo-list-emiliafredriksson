@@ -2,56 +2,96 @@ const inputElement = document.getElementById("input");
 const addButtonElement = document.getElementById("add");
 const choresElement = document.getElementById("chores");
 
-const choresArray = [];
-console.log(choresArray);
+// Array to store the chores
+let choresArray = [];
+// console.log(choresArray);
 
-function save() {
-  localStorage.saveChores = JSON.stringify(choresArray);
-}
+loadLocalStorage();
+displayChores();
 
-function refreshList() {
-  choresElement.innerHTML = "";
-
-  for (let chores in choresArray) {
+// The following 5 lines I got some help with from Arash.
+function loadLocalStorage() {
+  if (localStorage.chore) {
+    choresArray = JSON.parse(localStorage.chore);
   }
 }
 
 addButtonElement.addEventListener("click", addChores);
 
-function addChores(chores) {
+inputElement.addEventListener("keypress", (event) => {
+  if (event.code === "Enter") {
+    addChores();
+  }
+});
+
+function addChores() {
+  const chore = {
+    text: inputElement.value,
+    comepleted: false,
+  };
+
+  // doesn't get pushed to the array if the input is emty
   if (inputElement.value.length > 0) {
-    // console.log(inputElement.value);
-    const chore = {
-      text: "inputChore.value",
-      completed: false,
-    };
+    choresArray.push(chore);
 
-    // The text
-    const inputChore = document.createElement("div");
-    inputChore.innerText = inputElement.value;
-    inputChore.classList.add("text");
-    choresElement.appendChild(inputChore);
+    localStorage.chore = JSON.stringify(choresArray);
 
+    displayChores();
+
+    // To clear the inputfield
     inputElement.value = "";
+  }
+}
 
-    // The button for a completed task
+function displayChores(chore) {
+  //   prevents tasks from multiplying
+  choresElement.innerHTML = "";
+
+  for (let chore of choresArray) {
+    // Element where i put in all the other elements
+    const choreBuldingBlocks = document.createElement("div");
+
+    // Created span for the text
+    const inputChore = document.createElement("span");
+    inputChore.innerText = chore.text;
+    inputChore.classList.add("text");
+    choreBuldingBlocks.appendChild(inputChore);
+
+    // Created button for marking chore as done
     const doneButton = document.createElement("button");
     doneButton.innerText = "✓";
-    choresElement.appendChild(doneButton);
+    choreBuldingBlocks.appendChild(doneButton);
+
     doneButton.addEventListener("click", () => {
-      completedElement.appendChild(inputChore);
-      doneButton.remove();
-      completedElement.appendChild(deleteButton);
+      // console.log(chore);
+
+      if (chore.comepleted === true) {
+        chore.comepleted = false;
+      } else {
+        chore.comepleted = true;
+      }
+
+      localStorage.chore = JSON.stringify(choresArray);
+      displayChores();
     });
 
-    // The button to delete a task
+    if (chore.comepleted === true) {
+      inputChore.style.textDecoration = "line-through";
+    }
+
+    // Created button for deleting chore
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "✕";
-    choresElement.appendChild(deleteButton);
+    choreBuldingBlocks.appendChild(deleteButton);
+
     deleteButton.addEventListener("click", () => {
-      inputChore.remove();
-      doneButton.remove();
-      deleteButton.remove();
+      const choresIndex = choresArray.indexOf(chore);
+      choresArray.splice(choresIndex, 1);
+
+      localStorage.chore = JSON.stringify(choresArray);
+      displayChores();
     });
+
+    choresElement.appendChild(choreBuldingBlocks);
   }
 }
