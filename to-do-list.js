@@ -41,7 +41,7 @@ function addChores() {
 function displayChores() {
   const chore = {
     text: inputElement.value,
-    choreDone: false,
+    completed: false,
   };
 
   //   prevents tasks from multiplying
@@ -67,7 +67,7 @@ function displayChores() {
       choresElement.appendChild(choreBuldingBlocks);
 
       doneButton.addEventListener("click", () => {
-        chore.choreDone = true;
+        chore.completed = true;
         inputChore.style.textDecoration = "overline";
 
         localStorage.setItem("choresArray", JSON.stringify(choresArray));
